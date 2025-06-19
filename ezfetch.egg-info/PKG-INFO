@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: ezfetch
+Version: 1.0.0
+Summary: A clean, Python-based system info tool like Neofetch
+Author: Your Name
+Requires-Dist: psutil
+Dynamic: author
+Dynamic: requires-dist
+Dynamic: summary

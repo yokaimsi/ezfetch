@@ -1,0 +1,13 @@
+README.md
+setup.py
+ezfetch/__init__.py
+ezfetch/colors.py
+ezfetch/info.py
+ezfetch/logo.py
+ezfetch/main.py
+ezfetch.egg-info/PKG-INFO
+ezfetch.egg-info/SOURCES.txt
+ezfetch.egg-info/dependency_links.txt
+ezfetch.egg-info/entry_points.txt
+ezfetch.egg-info/requires.txt
+ezfetch.egg-info/top_level.txt

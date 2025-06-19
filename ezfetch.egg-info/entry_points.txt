@@ -1,0 +1,2 @@
+[console_scripts]
+ezfetch = ezfetch.main:display_info
