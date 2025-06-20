@@ -1,34 +1,54 @@
 # ezfetch
 
-A simple Python package for easy and efficient data fetching.
+[![PyPI version](https://badge.fury.io/py/ezfetch.svg)](https://badge.fury.io/py/ezfetch)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+A simple and efficient Python package to fetch data from the web with ease.
+
+---
+
+## Features
+
+- Easy-to-use API for HTTP requests
+- Supports GET, POST, PUT, DELETE methods
+- Handles JSON and text responses
+- Customizable headers and timeouts
+- Lightweight and dependency-free
+
+---
 
 ## Installation
+
+Install `ezfetch` from PyPI:
 
 ```bash
 pip install ezfetch
 ```
 
+---
+
 ## Usage
 
-```python
-import ezfetch
+### In Your Terminal
 
-# Example usage
-data = ezfetch.get('https://api.example.com/data')
-print(data)
+```
+ezfetch
 ```
 
-## Features
 
-- Simple API for HTTP requests
-- Supports GET, POST, PUT, DELETE
-- Handles JSON responses
+## Contributing
 
-## PyPI
+Contributions are welcome! Please open issues or submit pull requests.
 
-- **PyPI:** [https://pypi.org/project/ezfetch/](https://pypi.org/project/ezfetch/)
-- **Source:** [https://github.com/yokaimsi/ezfetch](https://github.com/yokaimsi/ezfetch)
+---
 
 ## License
 
-MIT License
+This project is licensed under the MIT License.
+
+---
+
+## Links
+
+- [PyPI](https://pypi.org/project/ezfetch/)
+- [GitHub](https://github.com/yokaimsi/ezfetch)
