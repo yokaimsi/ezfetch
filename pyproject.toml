@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ezfetch"
+version = "1.0.4"
+description = "A fast, cross-platform terminal system info tool written in Python (like neofetch)"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "yokaimsi", email = "contact.now.itachi@gmail.com"}
+]
+keywords = ["neofetch", "system-info", "cli", "terminal", "fetch"]
+requires-python = ">=3.6"
+
+dependencies = [
+    "psutil"
+]
+
+[project.scripts]
+ezfetch = "ezfetch.main:display_info"
+
+[tool.setuptools]
+packages = ["ezfetch"]
+
+[tool.setuptools.package-data]
+ezfetch = ["*.py"]
+
+[project.urls]
+Repository = "https://github.com/yokaimsi/ezfetch"

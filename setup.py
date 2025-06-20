@@ -2,9 +2,9 @@ from setuptools import setup, find_packages
 
 setup(
     name="ezfetch",
-    version="1.0.0",
+    version="1.0.3",
     description="A clean, Python-based system info tool like Neofetch",
-    author="Your Name",
+    author="yokaimsi",
     packages=find_packages(),
     install_requires=["psutil"],
     entry_points={

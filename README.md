@@ -1,20 +1,34 @@
 # ezfetch
 
-A fast, colorful, Python-based system information CLI tool inspired by Neofetch.
-
-## Features
-- OS, Kernel, Uptime
-- CPU, RAM, Disk, IP
-- User@Host
-- Custom ASCII logo
-- Clean and colorful output
+A simple Python package for easy and efficient data fetching.
 
 ## Installation
+
 ```bash
-pip install -e .
+pip install ezfetch
 ```
 
-## Run
-```bash
-ezfetch
+## Usage
+
+```python
+import ezfetch
+
+# Example usage
+data = ezfetch.get('https://api.example.com/data')
+print(data)
 ```
+
+## Features
+
+- Simple API for HTTP requests
+- Supports GET, POST, PUT, DELETE
+- Handles JSON responses
+
+## PyPI
+
+- **PyPI:** [https://pypi.org/project/ezfetch/](https://pypi.org/project/ezfetch/)
+- **Source:** [https://github.com/yokaimsi/ezfetch](https://github.com/yokaimsi/ezfetch)
+
+## License
+
+MIT License
