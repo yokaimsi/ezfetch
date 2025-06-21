@@ -1,67 +1,73 @@
 import os
-import socket
 import platform
-import subprocess
+import socket
 import psutil
-import time
-import datetime
+import subprocess
+
 
 def get_user_host():
     return f"{os.getenv('USER') or os.getenv('USERNAME')}@{socket.gethostname()}"
 
+
 def get_os():
     return platform.platform()
+
 
 def get_kernel():
     return platform.release()
 
+
 def get_uptime():
     try:
-        uptime_seconds = time.time() - psutil.boot_time()
-        uptime = str(datetime.timedelta(seconds=int(uptime_seconds)))
-        return uptime.split('.')[0]
+        uptime_seconds = int(psutil.boot_time())
+        current_seconds = int(psutil.time.time())
+        seconds = current_seconds - uptime_seconds
+        hours, remainder = divmod(seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        return f"{hours}:{minutes:02d}:{seconds:02d}"
     except:
-        return "Permission Denied"
+        return "Unknown"
+
 
 def get_packages():
     try:
         if os.path.exists("/usr/bin/dpkg"):
-            return f"{int(subprocess.check_output(['dpkg', '--get-selections']).decode().count('\n'))} (dpkg)"
-        elif os.path.exists("/usr/bin/pacman"):
-            return f"{int(subprocess.check_output(['pacman', '-Q']).decode().count('\n'))} (pacman)"
+            return subprocess.check_output("dpkg --list | wc -l", shell=True, text=True).strip() + " (dpkg)"
         elif os.path.exists("/usr/bin/rpm"):
-            return f"{int(subprocess.check_output(['rpm', '-qa']).decode().count('\n'))} (rpm)"
-        elif platform.system() == "Windows":
-            return "Using pip/env packages"
-        return "Unknown"
+            return subprocess.check_output("rpm -qa | wc -l", shell=True, text=True).strip() + " (rpm)"
+        elif platform.system() == "Darwin":
+            return subprocess.check_output("brew list | wc -l", shell=True, text=True).strip() + " (brew)"
+        else:
+            return "Unknown"
     except:
         return "Unknown"
 
+
 def get_shell():
-    shell = os.getenv('SHELL') or os.getenv('ComSpec')
-    version = subprocess.getoutput(f"{shell} --version").splitlines()[0] if shell else ''
-    return version or shell or "Unknown"
+    return os.environ.get("SHELL") or os.environ.get("ComSpec", "Unknown")
+
 
 def get_resolution():
     try:
-        if platform.system() == "Windows":
-            from ctypes import windll
-            user32 = windll.user32
-            user32.SetProcessDPIAware()
-            width = user32.GetSystemMetrics(0)
-            height = user32.GetSystemMetrics(1)
-            return f"{width}x{height}"
-        elif platform.system() == "Linux":
-            output = subprocess.check_output("xrandr | grep '*'", shell=True).decode()
-            return ", ".join(line.split()[0] for line in output.strip().splitlines())
+        if platform.system() == "Linux":
+            out = subprocess.check_output("xrandr | grep '*' | awk '{print $1}'", shell=True, text=True)
+            resolutions = list(set(out.strip().split('\n')))
+            return ", ".join(resolutions)
         elif platform.system() == "Darwin":
-            return subprocess.getoutput("system_profiler SPDisplaysDataType | grep Resolution")
-        return "Unknown"
+            return subprocess.check_output("system_profiler SPDisplaysDataType | grep Resolution", shell=True, text=True).strip().split(":")[-1].strip()
+        else:
+            return "Unknown"
     except:
         return "Unknown"
 
+
 def get_desktop_env():
     try:
+        if platform.system() == "Darwin":
+            return "Aqua (Quartz Compositor)"
+        elif platform.system() == "Windows":
+            return "Windows Shell"
+
         env = os.environ.get("XDG_CURRENT_DESKTOP") or os.environ.get("DESKTOP_SESSION") or "Unknown"
         env = env.strip()
 
@@ -91,12 +97,17 @@ def get_desktop_env():
             return env
     except:
         return "Unknown"
+
+
 def get_window_manager():
     try:
-        # First try Wayland session
+        if platform.system() == "Darwin":
+            return "Quartz WM"
+        elif platform.system() == "Windows":
+            return "DWM (Desktop Window Manager)"
+
         session_type = os.environ.get("XDG_SESSION_TYPE", "").strip()
         if session_type.lower() == "wayland":
-            # KDE or GNOME on Wayland
             if "KDE" in os.environ.get("XDG_CURRENT_DESKTOP", ""):
                 return "KWin (Wayland)"
             elif "GNOME" in os.environ.get("XDG_CURRENT_DESKTOP", ""):
@@ -104,7 +115,6 @@ def get_window_manager():
             else:
                 return f"Wayland ({os.environ.get('XDG_CURRENT_DESKTOP', 'Unknown')})"
 
-        # Then try wmctrl or xprop (X11)
         try:
             wm_name = subprocess.check_output("wmctrl -m", shell=True, text=True)
             for line in wm_name.splitlines():
