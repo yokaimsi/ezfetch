@@ -3,6 +3,7 @@ import platform
 import socket
 import psutil
 import subprocess
+import shutil
 
 
 def get_user_host():
@@ -31,11 +32,15 @@ def get_uptime():
 
 def get_packages():
     try:
-        if os.path.exists("/usr/bin/dpkg"):
+        if shutil.which("dpkg"):
             return subprocess.check_output("dpkg --list | wc -l", shell=True, text=True).strip() + " (dpkg)"
-        elif os.path.exists("/usr/bin/rpm"):
+        elif shutil.which("rpm"):
             return subprocess.check_output("rpm -qa | wc -l", shell=True, text=True).strip() + " (rpm)"
-        elif platform.system() == "Darwin":
+        elif shutil.which("pacman"):
+            return subprocess.check_output("pacman -Qq | wc -l", shell=True, text=True).strip() + " (pacman)"
+        elif shutil.which("apk"):
+            return subprocess.check_output("apk info | wc -l", shell=True, text=True).strip() + " (apk)"
+        elif platform.system() == "Darwin" and shutil.which("brew"):
             return subprocess.check_output("brew list | wc -l", shell=True, text=True).strip() + " (brew)"
         else:
             return "Unknown"
