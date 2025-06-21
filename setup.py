@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="ezfetch",
-    version="1.0.5",
+    version="1.0.6",
     description="A fast, cross-platform terminal system info tool written in Python (like neofetch)",
     author="yokaimsi",
     author_email="contact.now.itachi@gmail.com",
