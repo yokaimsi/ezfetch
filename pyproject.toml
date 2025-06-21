@@ -7,9 +7,10 @@ name = "ezfetch"
 version = "1.0.5"
 description = "A fast, cross-platform terminal system info tool written in Python (like neofetch)"
 readme = "README.md"
-license = {text = "MIT"}
+license = "MIT"
 authors = [
-    {name = "yokaimsi", email = "contact.now.itachi@gmail.com"}
+    {name = "yokaimsi", email = "contact.now.itachi@gmail.com"},
+    {name = "himonshuuu", email = "saikiahimangshu1256@gmail.com"},
 ]
 keywords = ["neofetch", "system-info", "cli", "terminal", "fetch"]
 requires-python = ">=3.6"
