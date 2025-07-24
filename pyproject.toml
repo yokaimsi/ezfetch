@@ -20,7 +20,7 @@ dependencies = [
 ]
 
 [project.scripts]
-ezfetch = "ezfetch.main:display_info"
+ezfetch = "ezfetch.__main__:display_info"
 
 [tool.setuptools]
 packages = ["ezfetch"]
